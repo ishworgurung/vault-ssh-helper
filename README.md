@@ -126,6 +126,7 @@ please see the [HCL Specification](https://github.com/hashicorp/hcl).
 |`tls_skip_verify`  |Skip TLS certificate verification. Use with caution.
 |`allowed_roles`    |List of comma-separated Vault SSH roles. The OTP verification response from the server will contain the name of the role against which the OTP was issued. Specify which roles are allowed to login using this configuration. Set this to `*` to allow any role to perform a login.
 |`allowed_cidr_list`|List of comma-separated CIDR blocks. If the IP used by the user to connect to the host is different than the address(es) of the host's network interface(s) (for instance, if the address is NAT-ed), then `vault-ssh-helper` cannot authenticate the IP. In these cases, the IP returned by Vault will be matched with the CIDR blocks in this list. If it matches, the authentication succeeds. (Use with caution)
+|`tls_min_version`  |The minimum TLS version to use (for 1.3 use `0x0304`, 1.2 use `0x0303`). Full list: https://golang.org/pkg/crypto/tls/#pkg-constants
 
 Sample `config.hcl`:
 
@@ -135,6 +136,7 @@ ssh_mount_point = "ssh"
 ca_cert = "/etc/vault-ssh-helper.d/vault.crt"
 tls_skip_verify = false
 allowed_roles = "*"
+tls_min_version = 0x0304
 ```
 
 PAM Configuration
